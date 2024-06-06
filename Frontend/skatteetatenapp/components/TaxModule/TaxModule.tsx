@@ -48,7 +48,7 @@ const TaxModule = ({
                             </>
                         ) :
                             (
-                                <MdOutlineDeleteOutline onClick={() => removeModule()} />
+                                <MdOutlineDeleteOutline onClick={() => removeModule()} className="cursor-pointer" />
                             )}
                     </div>
                     <div className="flex justify-end cursor-default">
