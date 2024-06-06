@@ -31,7 +31,13 @@ const TaxModuleCreator = ({
     }, []);
 
     const addModule = () => {
+        let idNumber = Math.random();
+        while (items.filter(x => x.id == idNumber).length > 0) {
+            idNumber = Math.random();
+        }
+
         const newItem: TaxModuleType = {
+            id: idNumber,
             moduleName: moduleName,
             money: money,
             description: description,
@@ -42,6 +48,7 @@ const TaxModuleCreator = ({
         setItems(updatedItems);
         localStorage.setItem("module", JSON.stringify(updatedItems));
     };
+
 
     const createModule = () => {
         addModule();
