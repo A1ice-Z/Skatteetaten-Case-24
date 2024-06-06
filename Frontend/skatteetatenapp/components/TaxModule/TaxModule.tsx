@@ -1,6 +1,9 @@
+import { useEffect, useState } from "react";
 import { FiDollarSign, FiCreditCard, FiFrown, FiHome } from "react-icons/fi";
+import { MdOutlineDeleteOutline } from "react-icons/md";
 
 interface TaxModuleProps {
+    id: number;
     moduleName: "Inntekt" | "Formue" | "Gjeld" | "Familie";
     money: string;
     children: string;
@@ -9,21 +12,44 @@ interface TaxModuleProps {
 }
 
 const TaxModule = ({
+    id,
     moduleName,
     money,
     children,
     description,
     married,
 }: TaxModuleProps) => {
+    const [hovered, setHovered] = useState<boolean>(false);
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        const storedItems = localStorage.getItem("module");
+        setItems(JSON.parse(storedItems));
+    }, []);
+
+    const removeModule = () => {
+        const updatedItems = items.filter(x => x.id != id)
+        setItems(updatedItems);
+        localStorage.setItem("module", JSON.stringify(updatedItems));
+        location.reload();
+    }
+
     return (
         <>
-            <main className="w-[180px] h-[180px] bg-blue-default rounded-lg overflow-hidden text-beige-default shadow-md">
+            <main onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} className="w-[180px] h-[180px] bg-blue-default rounded-lg overflow-hidden text-beige-default shadow-md">
                 <div className="flex w-full items-center py-2 px-4">
                     <div className="flex justify-start w-full text-3xl">
-                        {moduleName == "Inntekt" && <FiDollarSign />}
-                        {moduleName == "Familie" && <FiHome />}
-                        {moduleName == "Gjeld" && <FiFrown />}
-                        {moduleName == "Formue" && <FiCreditCard />}
+                        {!hovered ? (
+                            <>
+                                {moduleName == "Inntekt" && <FiDollarSign />}
+                                {moduleName == "Familie" && <FiHome />}
+                                {moduleName == "Gjeld" && <FiFrown />}
+                                {moduleName == "Formue" && <FiCreditCard />}
+                            </>
+                        ) :
+                            (
+                                <MdOutlineDeleteOutline onClick={() => removeModule()} />
+                            )}
                     </div>
                     <div className="flex justify-end cursor-default">
                         <p className="font-bold tracking-wider">{moduleName}</p>

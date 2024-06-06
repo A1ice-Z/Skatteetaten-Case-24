@@ -48,7 +48,7 @@ const Home = () => {
         let savings = 0;
         let debt = 0;
         let children = 0;
-        let marriageStatus;
+        let marriageStatus = false;
         modules.map((module: TaxModuleType) => {
             if (module.moduleName == "Familie") {
                 children += parseInt(module.children);
