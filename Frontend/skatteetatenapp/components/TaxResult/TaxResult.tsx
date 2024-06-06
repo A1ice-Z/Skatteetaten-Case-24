@@ -19,7 +19,7 @@ const TaxResult = ({ income, debt, savings, tax, taxPercentage, restPercentage }
                     Resultat
                 </p>
                 {
-                    tax ? (<div><div className="my-[10px] h-[2px] w-full bg-blue-light"></div>
+                    tax !== undefined ? (<div><div className="my-[10px] h-[2px] w-full bg-blue-light"></div>
                         <div className='py-4 flex justify-center w-full'>
                             <PieChart
                                 className='w-[180px]'
