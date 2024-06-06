@@ -1,4 +1,5 @@
 export type TaxModuleType = {
+    id: number;
     moduleName: "Inntekt" | "Formue" | "Gjeld" | "Familie";
     money: string;
     children: string;
